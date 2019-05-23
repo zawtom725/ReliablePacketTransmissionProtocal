@@ -1,0 +1,42 @@
+// check connectivity
+ping 192.168.122.170
+
+// sending
+cat /dev/zero | nc 192.168.122.170 5201
+// receiving
+nc -l 5201 | pv -r
+
+// receiving
+iperf3 -s
+// sending
+iperf3 -c 192.168.122.170 -p 5201
+
+// set delay
+sudo modprobe sch_netem
+sudo tc qdisc add dev ens3 root handle 1:0 netem delay 20ms loss 5% reorder 5%
+// set bandwidth
+sudo modprobe sch_tbf
+sudo tc qdisc add dev ens3 parent 1:1 handle 10: tbf rate 100Mbit burst 40mb latency 25ms
+
+
+
+//local testing: change ens3 to lo'
+
+
+// receiving
+iperf3 -s
+// sending
+iperf3 -c 127.0.0.1 -p 5201
+
+
+add the root rule 
+sudo modprobe sch_netem
+sudo tc qdisc add dev lo root handle 1:0 netem delay 20ms 
+// add "loss 5% reorder 5%" if needed
+sudo tc qdisc add dev lo root handle 1:0 netem delay 20ms loss 5% reorder 5%
+
+add parent rule: 
+sudo modprobe sch_tbf
+sudo tc qdisc add dev lo parent 1:1 handle 10: tbf rate 100Mbit burst 40mb latency 25ms
+delete the rule: 
+sudo tc qdisc del dev lo root
