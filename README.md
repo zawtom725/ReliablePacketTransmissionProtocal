@@ -1,6 +1,6 @@
 ## Reliable Packet Transmission Protocol
 ###### Author: Ziang Wan, Jiacheng Zhu
-This repository implements a reliable communication protocol between two hosts on an unreliable link. The protocol uses a variant of [Sliding Window Protocol](https://en.wikipedia.org/wiki/Sliding_window_protocol) with [Congestion Control](https://en.wikipedia.org/wiki/TCP_congestion_control). The protocol can transmit data packets reliably and in-order. In a virtual testing environment, the protocol achieved a data throughput of 57 Mbps on a 100 Mbps link with average 7% IP packet loss rate.
+In this repository, Jiacheng and I implement a reliable communication protocol between two hosts on an unreliable link. The protocol uses a variant of [Sliding Window Protocol](https://en.wikipedia.org/wiki/Sliding_window_protocol) with [Congestion Control](https://en.wikipedia.org/wiki/TCP_congestion_control). The protocol can transmit data packets reliably and in-order. In a virtual testing environment, the protocol achieved a data throughput of 57 Mbps on a 100 Mbps link with average 7% IP packet loss rate.
 
 ### Set up a virtual testing environment
 Assuming you have two hosts with IP 192.168.122.170 and 192.168.122.225. 
